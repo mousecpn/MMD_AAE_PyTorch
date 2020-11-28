@@ -140,14 +140,13 @@ def train(args):
         total_loss.backward()
         optimizer_model.step()
 
-        fake_data = np.random.laplace(0, 1, size=data.shape).astype('float32')
-        fake_data  = torch.tensor(fake_data).cuda()
+        fake_e = np.random.laplace(0, 1, size=e.shape).astype('float32')
+        fake_e  = torch.tensor(fake_e).cuda()
         real_labels = torch.ones(data.shape[0],1).cuda()
         fake_labels = torch.zeros(data.shape[0],1).cuda()
-        all_data = torch.cat((data,fake_data),dim=0)
+        all_data = torch.cat((e,fake_e),dim=0)
         all_labels = torch.cat((fake_labels,real_labels),dim=0)
 
-        e, _, _ = model(all_data)
         preds = adv(e.detach())
         adv_loss = advLoss(torch.square(preds), all_labels)
         print('iteration{}: adv_loss:{}'.format(it,adv_loss.item()))

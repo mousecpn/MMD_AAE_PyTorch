@@ -4,7 +4,8 @@ This is the unofficial PyTorch implementation of [Domain Generalization with Adv
 
 #### Environment
 
-PyTorch==3.7
+Python==3.7
+Pytorch==1.1.0
 
 Scipy==1.4.1
 

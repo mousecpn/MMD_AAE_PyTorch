@@ -147,7 +147,7 @@ def train(args):
         all_data = torch.cat((e,fake_e),dim=0)
         all_labels = torch.cat((fake_labels,real_labels),dim=0)
 
-        preds = adv(e.detach())
+        preds = adv(all_data.detach())
         adv_loss = advLoss(torch.square(preds), all_labels)
         print('iteration{}: adv_loss:{}'.format(it,adv_loss.item()))
         optimizer_adv.zero_grad()
